@@ -1,0 +1,12 @@
+.logout a{
+  border: 1px solid #333;
+  display: inline-block;
+  padding: 5px 15px;
+  text-decoration: none;
+  color: #000;
+  border-radius: 15px;
+}
+.logout a:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  color: #a00;
+}
