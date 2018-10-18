@@ -1,0 +1,18 @@
+.text_problem{
+  text-align: center;
+  font-size: 20px;
+  color:#8325c6;
+}
+
+.hr{
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.form_problem{
+  margin-top: 3.5%;
+}
+.form_problem p{
+  
+}
