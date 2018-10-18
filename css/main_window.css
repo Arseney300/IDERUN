@@ -27,7 +27,10 @@ select{
   margin-left: 15px;
 }
 
+
+
 .things{
+
   left: 0px;
   width: 180px;
   height: 600px;
@@ -40,6 +43,9 @@ select{
 
 
 
+
+
+
 .RUN_button{
   position: relative;
   clear: both;
@@ -47,4 +53,10 @@ select{
 .RUN_button input{
   height: 50px;
   width: 200px;
+}
+
+.things textarea{
+  resize: none;
+  width:179px;
+  height: 599px;
 }

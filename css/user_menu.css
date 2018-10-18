@@ -1,3 +1,19 @@
+.delete_user a{
+  border: 1px solid #333;
+  display: inline-block;
+  padding: 5px 15px;
+  text-decoration: none;
+  color: #000;
+  border-radius: 15px;
+}
+
+.delete_user a:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  color: #a00;
+}
+
+
+
 .logout a{
   border: 1px solid #333;
   display: inline-block;
@@ -9,4 +25,33 @@
 .logout a:hover{
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
   color: #a00;
+}
+
+
+
+.properites_of_user .login_of_user{
+    font-style: italic;
+}
+.properites_of_user .email_of_user  {
+  font-style: italic;
+}
+
+.name_of_user{
+  font-size: 17px;
+}
+
+.block_1{
+  float: left;
+  margin-right: 12%;
+}
+
+.block_2{
+  float: left;
+  margin-right: 8%;
+}
+.block_3{
+  float: left;
+}
+.block_4{
+  float: top;
 }
