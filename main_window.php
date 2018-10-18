@@ -162,8 +162,9 @@
 
         <<option value="return-value">name_of_programming_language</option>
       -->
+
       <h5>Выбор языка:</h5>
-      <select name="select_lang" id = "select_lang" onchange="selectLang()">
+      <select name="select_lang" id = "select_lang" onchange="selectLang()" >
         <?php
         function select_lang($lang){
           if ($lang == 'text/x-java')
@@ -245,6 +246,8 @@
         <option>zenburn</option>
       </select>
 
+
+
       <!-- Mini php code, which responsible for transfer code, when page was updated -->
       <?php
         if(isset($_POST['RUN_button']))
@@ -307,17 +310,44 @@
 
 
           */
+          // Function for generate random 6-char name
+          function RandomName(){
+            $bytes = openssl_random_pseudo_bytes(6);
+            $hex = bin2hex($bytes);
+            return $hex;
+          }
 
+          if (!(isset($_SESSION['code_name'])))
+            $_SESSION['code_name'] =  RandomName();
+          // integration code to DATAbase, now its useless, in future i think, its will be useless too
+          $code =  R::dispense('codes');
+          $code->id_code = $_SESSION['code_name'];
+          $code->text = $msg;
+          $code->code_lang = $lang;
+          if (isset($_SESSION['logged_user']))
+            $code->user = $_SESSION['logged_user'];
+          $code->input = '';
+          $code->output = '';
+          R::store($code);
+        }
 
           if ($lang == 'text/x-c++src'){
+            $name_of_file = $_SESSION['code_name'];
             $name_of_file = $name_of_file.'.cpp';
-            $file = fopen($name_of_file, "w");
+            $file = fopen($name_of_file, w);
             fwrite($file, $msg);
             //$output = array();
-            exec("g++ ".$name_of_file." -o a.out 2>&1", $output);
+            system("./create_file.out ".$name_of_file." users/".$_SESSION['logged_user']->Login.'/'.$name_of_file);
+            system("rm ".$name_of_file);
+            exec("g++ users/".$_SESSION['logged_user']->Login.'/'.$name_of_file." -o"." users/".$_SESSION['logged_user']->Login."/a.out 2>&1", $output);
             //system("g++ ".$name_of_file." -o a.out", $output);
-            if ($output == array()){
-              exec("./a.out", $output);
+            exec("./users/".$_SESSION['logged_user']->Login."/a.out", $output);
+
+            foreach ($output as $value) {
+              echo $value."<br>";
+            }
+            /*if ($output == array()){
+              exec("./users/".$_SESSION['logged_user']->Login."/a.out", $output);
               //print_r ($output);
               foreach ($output as $value) {
                 echo $value."<br>";
@@ -328,7 +358,7 @@
               foreach ($output as $value) {
                 echo $value."<br>";
               }
-            }
+            }*/
           }
 
           elseif ($lang =="text/x-java") {
@@ -357,26 +387,7 @@
               echo $value."<br>";
             }
           }
-          // Function for generate random 6-char name
-          function RandomName(){
-            $bytes = openssl_random_pseudo_bytes(6);
-            $hex = bin2hex($bytes);
-            return $hex;
-          }
 
-          if (!(isset($_SESSION['codename'])))
-            $_SESSION['code_name'] =  RandomName();
-          // integration code to DATAbase, now its useless, in future i think, its will be useless too
-          $code =  R::dispense('codes');
-          $code->id_code = $_SESSION['code_name'];
-          $code->text = $msg;
-          $code->code_lang = $lang;
-          if (isset($_SESSION['logged_user']))
-            $code->user = $_SESSION['logged_user'];
-          $code->input = '';
-          $code->output = '';
-          R::store($code);
-        }
         // realy???????? button??????
         // oh f*ck
         else {
@@ -411,6 +422,7 @@
     editor.setOption("theme", theme);
     location.hash = "#" + theme;
   }
+  
   var choice = (location.hash && location.hash.slice(1)) ||
                (document.location.search &&
                 decodeURIComponent(document.location.search.slice(1)));

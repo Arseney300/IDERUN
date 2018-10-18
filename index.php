@@ -59,6 +59,9 @@
             $errors = array();
             //system("mkdir /var/www/html/users".$data['Login'],$errors);
             //echo $errors;
+            //system("./new_folder.out users/".$data['Login']." 2>&1",$errors);
+            //echo $errors;
+            system("mkdir users/".$data['Login']." 2>&1",$errors);
             header('Location: /main_window.php');
             }
 
